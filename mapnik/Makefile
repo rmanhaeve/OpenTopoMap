@@ -51,8 +51,8 @@ dem:
 	touch .contours
 
 
-.osm_data: .permissions .extensions $(patsubst %,data/%,$(OSM_FILES))
-	osm2pgsql --username=$(DB_USER) --slim -d gis -C 12000 --number-processes 10 --style osm2pgsql/opentopomap.style $(patsubst %,data/%,$(OSM_FILES))
+.osm_data: .permissions .extensions $(DATA_OSM_FILES)
+	osm2pgsql --username=$(DB_USER) --slim -d gis -C 12000 --number-processes 10 --style osm2pgsql/opentopomap.style $(DATA_OSM_FILES)
 	touch .osm_data
 
 preprocess: .osm_data
