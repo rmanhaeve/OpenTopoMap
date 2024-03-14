@@ -22,6 +22,9 @@ raw.tif: $(SRTM_FILES)
 	
 warp-%.tif: raw.tif
 	gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "$(TRANSFORMATION)" -r bilinear -tr $* $* raw.tif warp-$*.tif
+contours.tif: raw.tif
+	gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m" -r bilinear -tr 90 90 raw.tif contours.tif
+
 
 relief-%.tif: warp-%.tif
 	gdaldem color-relief -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-$*.tif ../relief_color_text_file.txt relief-$*.tif
@@ -48,4 +51,8 @@ hillshade-30m-jpeg.tif: warp-90.tif
 	
 contours.pbf: warp-90.tif
 	source ../mapnik_venv/bin/activate && pyhgtmap --max-nodes-per-tile=0 -s 10 -0 --pbf warp-90.tif
+	mv lon-*.osm.pbf contours.pbf
+	
+contours.pbf: contours.tif
+	source ../mapnik_venv/bin/activate && pyhgtmap --max-nodes-per-tile=0 -s 10 -0 --pbf contours.tif
 	mv lon-*.osm.pbf contours.pbf
