@@ -1,0 +1,8 @@
+.contours
+.db
+.db_permissions
+.extensions
+.osm_data
+.select_permissions
+.user
+mapnik_venv/

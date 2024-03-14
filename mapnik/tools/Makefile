@@ -26,9 +26,11 @@ isolation:
 	| ./saddledirection -f ../dem/raw.tif -o sql | psql -U $(DB_USER) gis 
 	touch .saddles
 	
-.isolation: isolation ../dem/raw.tif 
+.columns:
 	psql -U $(DB_USER)  -d gis -c "ALTER TABLE planet_osm_point ADD COLUMN otm_isolation text;"
 	psql -U $(DB_USER)  -d gis -c "ALTER TABLE planet_osm_polygon ADD COLUMN otm_isolation text;"
+	
+.isolation: .columns isolation ../dem/raw.tif 
 	psql -U $(DB_USER) -A -t -F ";" gis -c \
 	"SELECT osm_id,ST_X(ST_Astext(ST_Transform(way,4326))),ST_Y(ST_Astext(ST_Transform(way,4326))),ele \
 	FROM planet_osm_point WHERE \"natural\" IN ('peak','volcano') AND \
