@@ -1,1 +1,9 @@
+SHELL := /bin/bash
 DB_USER := gis
+POSTGRES_ROOT := /etc/postgresql/15/main
+
+SRTM_FILES = M31 N31
+WARP_LEVELS = 90 500 700 1000 5000
+RELIEF_LEVELS = 500 5000
+HILLSHADE_LEVELS = 90 500 700 1000 5000
+OSM_FILES = belgium-latest.osm.pbf

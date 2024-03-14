@@ -1,9 +1,5 @@
-SHELL := /bin/bash
-SRTM_FILES = M31 N31
-WARP_LEVELS = 90 500 700 1000 5000
-RELIEF_LEVELS = 500 5000
-HILLSHADE_LEVELS = 90 500 700 1000 5000
-TRANSFORMATION = $(file <../transformation.proj4)
+include ../settings.mk
+
 .PHONY: all
 all: $(patsubst %, warp-%.tif, $(WARP_LEVELS)) $(patsubst %, relief-%.tif, $(RELIEF_LEVELS)) $(patsubst %, hillshade-%.tif, $(HILLSHADE_LEVELS)) hillshade-90-jpeg.tif hillshade-30m-jpeg.tif contours.pbf
 	
@@ -21,9 +17,7 @@ raw.tif: $(SRTM_FILES)
 	gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -o raw.tif combined/*.hgt.tif
 	
 warp-%.tif: raw.tif
-	gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "$(TRANSFORMATION)" -r bilinear -tr $* $* raw.tif warp-$*.tif
-contours.tif: raw.tif
-	gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m" -r bilinear -tr 90 90 raw.tif contours.tif
+	gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m"-r bilinear -tr $* $* raw.tif warp-$*.tif
 
 
 relief-%.tif: warp-%.tif
@@ -51,8 +45,4 @@ hillshade-30m-jpeg.tif: warp-90.tif
 	
 contours.pbf: warp-90.tif
 	source ../mapnik_venv/bin/activate && pyhgtmap --max-nodes-per-tile=0 -s 10 -0 --pbf warp-90.tif
-	mv lon-*.osm.pbf contours.pbf
-	
-contours.pbf: contours.tif
-	source ../mapnik_venv/bin/activate && pyhgtmap --max-nodes-per-tile=0 -s 10 -0 --pbf contours.tif
 	mv lon-*.osm.pbf contours.pbf

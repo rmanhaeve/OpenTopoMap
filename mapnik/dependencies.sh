@@ -2,7 +2,7 @@
 
 # Tested for Ubuntu 23.10
 
-sudo apt install -y sed git wget python3-mapnik make gdal-bin python3-pip python3-full postgresql postgis osm2pgsql libgdal-dev
+sudo apt install -y sed git unzip wget python3-mapnik make gdal-bin python3-pip python3-full postgresql postgis osm2pgsql libgdal-dev
 pip install
 if [ -d /path/to/directory ]
 then

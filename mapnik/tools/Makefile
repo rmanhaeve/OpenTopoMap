@@ -29,6 +29,7 @@ isolation:
 .columns:
 	psql -U $(DB_USER)  -d gis -c "ALTER TABLE planet_osm_point ADD COLUMN otm_isolation text;"
 	psql -U $(DB_USER)  -d gis -c "ALTER TABLE planet_osm_polygon ADD COLUMN otm_isolation text;"
+	touch .columns
 	
 .isolation: .columns isolation ../dem/raw.tif 
 	psql -U $(DB_USER) -A -t -F ";" gis -c \
