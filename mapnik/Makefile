@@ -19,7 +19,7 @@ dem:
 	$(MAKE) -C dem
 
 .user:
-	cd /tmp && sudo -u postgres createuser  --createdb  $(DB_USER)
+	cd /tmp && sudo -u postgres createuser $(DB_USER)
 	touch .user
 
 .db: .user
