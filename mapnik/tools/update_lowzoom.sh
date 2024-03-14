@@ -1,13 +1,5 @@
 #!/bin/bash
 
-dropdb --if-exists lowzoom
-
-createdb lowzoom
-psql -d lowzoom -c "CREATE EXTENSION postgis;"
-psql -d lowzoom -c "CREATE EXTENSION dblink;"
-psql -d lowzoom -c 'GRANT SELECT ON ALL TABLES IN SCHEMA public TO tirex;'
-psql -d gis -c "CREATE EXTENSION IF NOT EXISTS dblink;"
-
 # water
 echo "Simplifying water polygons..."
 psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_water AS SELECT ST_SimplifyPreserveTopology(way,150) AS way,name,\"natural\",waterway,way_area FROM planet_osm_polygon WHERE (\"natural\" = 'water' OR waterway = 'riverbank' OR water='lake' OR landuse IN ('basin','reservoir')) AND way_area > 50000;"

@@ -20,7 +20,7 @@
 	</Rule>
 </Style>
 
-<Layer name="waterpolys_z8">
+<Layer name="waterpolys_z8" srs="+proj=longlat +datum=WGS84 +no_defs +type=crs">
 	<StyleName>waterpolys_z8</StyleName>
 	<Datasource>
 		<Parameter name="type">shape</Parameter>
@@ -28,7 +28,7 @@
 	</Datasource>
 </Layer>
 
-<Layer name="waterpolys">
+<Layer name="waterpolys" srs="+proj=longlat +datum=WGS84 +no_defs +type=crs">
 	<StyleName>waterpolys_z9</StyleName>
 	<StyleName>waterpolys_z11</StyleName>
 	<Datasource>

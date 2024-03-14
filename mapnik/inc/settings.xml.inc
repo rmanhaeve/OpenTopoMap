@@ -8,7 +8,7 @@ Note: feel free to leave password, host, port, or use blank
 <!--<Parameter name="password">%(password)s</Parameter>-->
 <!--<Parameter name="host">%(host)s</Parameter>-->
 <!--<Parameter name="port">%(port)s</Parameter>-->
-<!--<Parameter name="user">%(user)s</Parameter>-->
+<Parameter name="user">gis</Parameter>
 <Parameter name="dbname">gis</Parameter>
 <!-- this should be 'false' if you are manually providing the 'extent' -->
 <Parameter name="estimate_extent">false</Parameter>
