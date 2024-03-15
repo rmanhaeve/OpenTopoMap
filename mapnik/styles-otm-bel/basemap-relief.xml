@@ -1,0 +1,47 @@
+<!--<Style name="bathy">
+	<Rule>
+		&maxscale_zoom0;
+		&minscale_zoom17;
+		<RasterSymbolizer opacity="0.9" scaling="bilinear" />
+	</Rule>
+</Style>
+<Layer name="bathymetry">
+	<StyleName>bathy</StyleName>
+	<Datasource>
+		<Parameter name="type">gdal</Parameter>
+		<Parameter name="file">data/OB_LR/bathy.tif</Parameter>
+	</Datasource>
+</Layer>-->
+
+
+<Style name="relief-5000">
+	<Rule>
+		&maxscale_zoom1;
+		&minscale_zoom4;
+		<RasterSymbolizer opacity="0.9" scaling="bilinear" />
+	</Rule>
+</Style>
+<Layer name="relief-5000" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs +type=crs">
+	<StyleName>relief-5000</StyleName>
+	<Datasource>
+		<Parameter name="type">gdal</Parameter>
+		<Parameter name="file">dem/relief-5000.tif</Parameter>
+		<Parameter name="format">tiff</Parameter>
+	</Datasource>
+</Layer>
+
+<Style name="relief-500">
+	<Rule>
+		&maxscale_zoom5;
+		&minscale_zoom8;
+		<RasterSymbolizer opacity="0.9" scaling="bilinear" />
+	</Rule>
+</Style>
+<Layer name="relief-500" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs +type=crs">
+	<StyleName>relief-500</StyleName>
+	<Datasource>
+		<Parameter name="type">gdal</Parameter>
+		<Parameter name="file">dem/relief-500.tif</Parameter>
+		<Parameter name="format">tiff</Parameter>
+	</Datasource>
+</Layer>
