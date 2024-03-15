@@ -14,8 +14,7 @@
 	<Rule>
 		&maxscale_zoom15;
 		&minscale_zoom16;
-		<LineSymbolizer stroke="black" stroke-width="1.5" />
-		<PolygonSymbolizer fill="#555555" />
+		<PolygonSymbolizer fill="#A9A9A9" />
 	</Rule>
 	<Rule>
 		&maxscale_zoom17;

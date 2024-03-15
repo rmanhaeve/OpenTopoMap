@@ -46,4 +46,10 @@
 		<Filter>[leisure] = 'nature_reserve'</Filter>
 		<LineSymbolizer stroke="#85c243" stroke-width="5" stroke-opacity="0.5"/>
 	</Rule>
+		<Rule>
+		&maxscale_zoom14;
+		&minscale_zoom17;
+		<Filter>[landuse] = 'residential'</Filter>
+		<PolygonSymbolizer fill="#D3D3D3" />
+	</Rule>
 </Style>

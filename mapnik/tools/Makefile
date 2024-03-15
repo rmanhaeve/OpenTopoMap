@@ -10,7 +10,7 @@ all: .functions .lowzoom .saddles .isolation
 	touch .functions
 
 .lowzoom: 
-	cd /tmp && sudo -u postgres ./update_lowzoom.sh
+	sudo -u postgres ./update_lowzoom.sh
 	touch .lowzoom
 	
 saddledirection:
