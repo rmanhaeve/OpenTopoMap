@@ -2,22 +2,22 @@ include ../settings.mk
 
 .PHONY: all
 all: $(patsubst %, warp-%.tif, $(WARP_LEVELS)) $(patsubst %, relief-%.tif, $(RELIEF_LEVELS)) $(patsubst %, hillshade-%.tif, $(HILLSHADE_LEVELS)) hillshade-90-jpeg.tif hillshade-30m-jpeg.tif contours.pbf
-	
+
 $(SRTM_FILES):
 	mkdir -p combined
 	wget -nc https://viewfinderpanoramas.org/dem3/$@.zip
 	unzip $@.zip
 	rm $@.zip
 	mv $@/*.hgt combined/
-	
-	
-	
+
+
+
 raw.tif: $(SRTM_FILES)
 	cd combined && for hgtfile in *.hgt;do gdal_fillnodata.py $$hgtfile $$hgtfile.tif; done
 	gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -o raw.tif combined/*.hgt.tif
-	
+
 warp-%.tif: raw.tif
-	gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m"-r bilinear -tr $* $* raw.tif warp-$*.tif
+	gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m" -r bilinear -tr $* $* raw.tif warp-$*.tif
 
 
 relief-%.tif: warp-%.tif

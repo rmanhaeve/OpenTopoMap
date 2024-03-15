@@ -3,13 +3,13 @@ include settings.mk
 WATER_POLYGON_FILES = data/simplified-water-polygons-split-3857 data/water-polygons-split-3857
 DATA_OSM_FILES = $(addprefix data/,$(OSM_FILES))
 
-.PHONY: all dem preprocess
-all: $(WATER_POLYGON_FILES) $(DATA_OSM_FILES) dem .contours .osm_data preprocess
+.PHONY: all dem preprocess select_permission
+all: $(WATER_POLYGON_FILES) $(DATA_OSM_FILES) dem .contours .osm_data preprocess select_permission
 
 $(WATER_POLYGON_FILES):
 	mkdir -p data
 	cd data && wget https://osmdata.openstreetmap.de/download/$(@F).zip && unzip $(@F).zip && rm $(@F).zip
-	
+
 
 $(DATA_OSM_FILES):
 	mkdir -p data
@@ -39,9 +39,6 @@ dem:
 
 .permissions: .db
 	sudo sed -i '1ilocal	all	$(DB_USER)	trust' $(POSTGRES_ROOT)/pg_hba.conf
-	cd /tmp && sudo -u postgres psql lowzoom -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO $(DB_USER);"
-	cd /tmp && sudo -u postgres psql gis -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO $(DB_USER);"
-	cd /tmp && sudo -u postgres psql contours -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO $(DB_USER);"
 	cd /tmp && sudo -u postgres psql -c 'SELECT pg_reload_conf();'
 	touch .permissions
 
@@ -57,6 +54,12 @@ dem:
 
 preprocess: .osm_data
 	$(MAKE) -C tools
+
+select_permission: preprocess
+	cd /tmp && sudo -u postgres psql lowzoom -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO $(DB_USER);"
+	cd /tmp && sudo -u postgres psql gis -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO $(DB_USER);"
+	cd /tmp && sudo -u postgres psql contours -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO $(DB_USER);"
+
 
 clean:
 	dropdb -U $(DB_USER) --if-exists lowzoom
