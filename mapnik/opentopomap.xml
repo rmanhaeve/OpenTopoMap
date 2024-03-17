@@ -86,11 +86,12 @@
 	%entities;
 ]>
 
-
-<Map background-color="#e0e0e0" srs="+proj=lcc +lat_0=50.797815 +lon_0=4.35921583333333 +lat_1=49.8333333333333 +lat_2=51.1666666666667 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs" buffer-size="256">
-<!--<Map background-color="#e0e0e0" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs +type=crs" buffer-size="256">-->
-<!--Map background-color="#e0e0e0" srs="&webmerc;" buffer-size="256">-->
-<!-- style definitions -->
+<!-- background-color:
+	zoom 0...8: #117803
+	zoom 9+: e0e0e0
+-->
+<Map background-color="#e0e0e0" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over" buffer-size="256">
+	<!-- style definitions -->
 	&fontset-settings;
 
 	&landuse-lowzoom;
@@ -170,7 +171,7 @@
 	
 	&basemap-relief;
 	
-	<Layer srs="&webmerc;" name="landuse-lowzoom">
+	<Layer name="landuse-lowzoom">
 		<StyleName>landuse-lowzoom</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,landuse,"natural" FROM landuse) AS landuse </Parameter>
@@ -179,7 +180,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="landuse">
+	<Layer name="landuse">
 		<StyleName>landuse</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,way_area,landuse,leisure,"natural",wetland,leaf_type,amenity,crop,orchard FROM planet_osm_polygon WHERE (landuse IS NOT NULL) OR (leisure IS NOT NULL) OR ("natural" IS NOT NULL) OR (wetland IS NOT NULL) OR (leaf_type IS NOT NULL) OR (amenity IS NOT NULL) OR (crop IS NOT NULL) OR (orchard IS NOT NULL) ORDER BY (CASE WHEN landuse='forest' THEN 0 ELSE 1 END) asc) AS landuse </Parameter>
@@ -190,7 +191,7 @@
 	
 	&hillshade;
 	
-	<Layer srs="&webmerc;" name="landuse-over-hillshade">
+	<Layer name="landuse-over-hillshade">
 		<StyleName>landuse-over-hillshade</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,landuse,"natural",leaf_type,amenity,building,power FROM planet_osm_polygon WHERE (landuse IS NOT NULL) OR ("natural" IS NOT NULL) OR (leaf_type IS NOT NULL) OR (amenity IS NOT NULL) OR (building IS NOT NULL) OR (power IS NOT NULL)) AS landuse </Parameter>
@@ -201,7 +202,7 @@
 	
 	&basemap-sea;
 	
-	<Layer srs="&webmerc;" name="road-areas">
+	<Layer name="road-areas">
 		<StyleName>road-areas</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,highway FROM planet_osm_polygon WHERE highway IS NOT NULL) AS roadareas</Parameter>
@@ -210,7 +211,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="water-lowzoom">
+	<Layer name="water-lowzoom">
 		<StyleName>water-casing-lowzoom</StyleName>
 		<StyleName>water-fill-lowzoom</StyleName>
 		<Datasource>
@@ -220,7 +221,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="waterway-lines">
+	<Layer name="waterway-lines">
 		<StyleName>waterway-lines</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,"CEMT",intermittent,motorboat,tunnel,waterway FROM planet_osm_line WHERE ("CEMT" IS NOT NULL) OR (intermittent IS NOT NULL) OR (motorboat IS NOT NULL) OR (tunnel IS NOT NULL) OR (waterway IS NOT NULL)) AS water </Parameter>
@@ -229,7 +230,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="water-polygons">
+	<Layer name="water-polygons">
 		<StyleName>waterway-polygons-casing</StyleName>
 		<StyleName>waterway-polygons-fill</StyleName>
 		<StyleName>water-areas</StyleName>
@@ -240,7 +241,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="landuse-over-water">
+	<Layer name="landuse-over-water">
 		<StyleName>landuse-over-water</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,"natural",wetland FROM planet_osm_polygon WHERE ("natural" IS NOT NULL) OR (wetland IS NOT NULL)) AS landuse </Parameter>
@@ -249,7 +250,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="water-weir-arrows">
+	<Layer name="water-weir-arrows">
 		<StyleName>water-weir</StyleName>
 		<StyleName>waterway-arrows</StyleName>
 		<Datasource>
@@ -259,7 +260,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="tunnels">
+	<Layer name="tunnels">
 		<StyleName>tunnels-casing</StyleName>
 		<StyleName>tunnels-fill</StyleName>
 		<StyleName>tunnels-middle</StyleName>
@@ -270,7 +271,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="cliffs-lines">
+	<Layer name="cliffs-lines">
 		<StyleName>cliffs</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,"natural","man_made",highway,barrier,'no' as area FROM planet_osm_line WHERE ("natural" IS NOT NULL) OR ("man_made" IS NOT NULL) OR (highway IS NOT NULL) OR (barrier IS NOT NULL)) AS cliff </Parameter>
@@ -278,7 +279,7 @@
 			&postgis-settings;
 		</Datasource>
 	</Layer>
-	<Layer srs="&webmerc;" name="cliffs-polygons">
+	<Layer name="cliffs-polygons">
 		<StyleName>cliffs</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,"natural","man_made",highway,barrier,'yes' as area FROM planet_osm_polygon WHERE ("natural" IS NOT NULL) OR ("man_made" IS NOT NULL) OR (highway IS NOT NULL) OR (barrier IS NOT NULL)) AS cliff </Parameter>
@@ -287,7 +288,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="buildings">
+	<Layer name="buildings">
 		<StyleName>buildings</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,building,leisure,railway,amenity,aeroway FROM planet_osm_polygon WHERE (building IS NOT NULL AND building != 'no') OR (aeroway = 'terminal')) AS buildings </Parameter>
@@ -296,7 +297,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="areas">
+	<Layer name="areas">
 		<StyleName>areas</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,landuse,leisure,way_area FROM planet_osm_polygon WHERE (landuse IS NOT NULL) OR (leisure IS NOT NULL)) AS area </Parameter>
@@ -305,10 +306,12 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="contours">
+	<Layer name="contours">
 		<StyleName>contours</StyleName>
 		<Datasource>
+			<!-- If you imported the contour lines as suggested in the HOWTO_DEM, use following:-->
             <Parameter name="table">(SELECT way,ele FROM planet_osm_line) AS contours </Parameter>
+            <!--<Parameter name="table">(SELECT way,ele FROM contours) AS contours </Parameter>-->
 			<Parameter name="dbname">contours</Parameter>
 			&postgis-settings;
 		</Datasource>
@@ -332,7 +335,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="barriers-poly">
+	<Layer name="barriers-poly">
 		<StyleName>barriers</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,barrier,historic,fenced,"natural",ST_Perimeter(way) AS length FROM planet_osm_polygon WHERE (barrier IS NOT NULL) OR (historic IS NOT NULL) OR (fenced IS NOT NULL) OR ("natural" IS NOT NULL)) AS barriers </Parameter>
@@ -340,7 +343,7 @@
 			&postgis-settings;
 		</Datasource>
 	</Layer>
-	<Layer srs="&webmerc;" name="barriers-line">
+	<Layer name="barriers-line">
 		<StyleName>barriers</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,barrier,historic,fenced,"natural",ST_Length(way) AS length FROM planet_osm_line WHERE (barrier IS NOT NULL) OR (historic IS NOT NULL) OR (fenced IS NOT NULL) OR ("natural" IS NOT NULL)) AS barriers </Parameter>
@@ -349,7 +352,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="railways-lowzoom">
+	<Layer name="railways-lowzoom">
 		<StyleName>railways-lowzoom</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,railway,"service",tunnel FROM railways) AS railways</Parameter>
@@ -358,7 +361,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="railways">
+	<Layer name="railways">
 		<StyleName>railways-embankment</StyleName>
 		<StyleName>railways</StyleName>
 		<Datasource>
@@ -368,7 +371,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="airports-line">
+	<Layer name="airports-line">
 		<StyleName>airports-casing</StyleName>
 		<StyleName>airports-fill</StyleName>
 		<Datasource>
@@ -378,7 +381,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="airports-poly">
+	<Layer name="airports-poly">
 		<StyleName>airports-poly</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,aeroway,way_area FROM planet_osm_polygon WHERE aeroway IS NOT NULL) AS airports_poly</Parameter>
@@ -387,7 +390,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="roads-lowzoom">
+	<Layer name="roads-lowzoom">
 		<StyleName>roads-casing-lowzoom</StyleName>
 		<StyleName>roads-fill-lowzoom</StyleName>
 		<Datasource>
@@ -397,7 +400,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="roads">
+	<Layer name="roads">
 		<StyleName>roads-casing</StyleName>
 		<StyleName>roads-fill</StyleName>
 		<StyleName>trams</StyleName>
@@ -408,7 +411,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="railway-points" clear-label-cache="on">
+	<Layer name="railway-points" clear-label-cache="on">
 		<StyleName>railway-points</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,railway,station,subway FROM planet_osm_point WHERE (railway IS NOT NULL) OR (station IS NOT NULL) OR (subway IS NOT NULL)) AS symbols </Parameter>
@@ -417,7 +420,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="ferry-routes">
+	<Layer name="ferry-routes">
 		<StyleName>ferry-routes</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,route FROM planet_osm_line WHERE route IS NOT NULL) AS route </Parameter>
@@ -426,7 +429,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="railway-bridges">
+	<Layer name="railway-bridges">
 		<StyleName>railway-bridges-casing</StyleName>
 		<StyleName>railway-bridges</StyleName>
 		<Datasource>
@@ -436,7 +439,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="railway-bridges-layer2" group-by="layer">
+	<Layer name="railway-bridges-layer2" group-by="layer">
 		<StyleName>railway-bridges-casing</StyleName>
 		<StyleName>railway-bridges</StyleName>
 		<Datasource>
@@ -446,7 +449,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="bridges">
+	<Layer name="bridges">
 		<StyleName>bridges-casing</StyleName>
 		<StyleName>bridges-fill</StyleName>
 		<StyleName>bridges-middle</StyleName>
@@ -459,7 +462,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="bridges-layer2">
+	<Layer name="bridges-layer2">
 		<StyleName>bridges-casing</StyleName>
 		<StyleName>bridges-fill</StyleName>
 		<StyleName>bridges-middle</StyleName>
@@ -472,7 +475,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="bridges-layer3" group-by="layer">
+	<Layer name="bridges-layer3" group-by="layer">
 		<StyleName>bridges-casing</StyleName>
 		<StyleName>bridges-fill</StyleName>
 		<StyleName>bridges-middle</StyleName>
@@ -485,7 +488,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="cablecars">
+	<Layer name="cablecars">
 		<StyleName>aerialways</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,aerialway FROM planet_osm_line WHERE aerialway IS NOT NULL) AS aerialway </Parameter>
@@ -494,7 +497,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="powerlines">
+	<Layer name="powerlines">
 		<StyleName>powerlines</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,power,voltage FROM planet_osm_line WHERE (power IS NOT NULL) OR (voltage IS NOT NULL)) AS powerlines </Parameter>
@@ -502,7 +505,7 @@
 			&postgis-settings;
 		</Datasource>
 	</Layer>
-	<Layer srs="&webmerc;" name="powertowers">
+	<Layer name="powertowers">
 		<StyleName>powertowers</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,power FROM planet_osm_point WHERE power IN ('tower','pole')) AS powertowers </Parameter>
@@ -511,7 +514,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="text-natural-areas-lowzoom">
+	<Layer name="text-natural-areas-lowzoom">
 	 <StyleName>text-natural-areas-lowzoom</StyleName>
 	 <Datasource>
 	   <Parameter name="table">(SELECT way,name,areatype,way_area,nextregionsize,subregionsize FROM naturalarealabels) AS naturallabels </Parameter>
@@ -521,7 +524,7 @@
 	</Layer>
 
 	
-      <Layer srs="&webmerc;" name="text-water-lowzoom">
+      <Layer name="text-water-lowzoom">
 		<StyleName>text-water-lowzoom</StyleName>
 		<Datasource>
             <Parameter name="table">(SELECT way,' '&#124;&#124;name&#124;&#124;' ' AS name,lake_area FROM lakelabels WHERE label='lakeaxis' OR label='bayaxis' OR label='straitaxis') AS lakelabels </Parameter>
@@ -530,7 +533,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="text-natural-poly">
+	<Layer name="text-natural-poly">
 		<StyleName>text-natural-poly</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,name,"natural",leisure,way_area FROM planet_osm_polygon WHERE (name IS NOT NULL) OR ("natural" IS NOT NULL) OR (leisure IS NOT NULL)) AS names</Parameter>
@@ -539,7 +542,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="symbols-sport">
+	<Layer name="symbols-sport">
 		<StyleName>symbols-sport</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,(pitchdata).icon AS icon,(pitchdata).angle AS angle,(pitchdata).pitch_area AS pitch_area,(pitchdata).labelsizefactor AS labelsizefactor FROM (select way,getpitchicon(way,sport) as pitchdata FROM planet_osm_polygon WHERE leisure='pitch' AND (building IS NULL OR building = 'no')) AS pitches) AS symbols </Parameter>
@@ -548,7 +551,7 @@
 		</Datasource>
 	</Layer>
 
-    <Layer srs="&webmerc;" name="symbols-stations">
+    <Layer name="symbols-stations">
 		<StyleName>symbols-stations</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,name,railway,train,subway,station,direction FROM planet_osm_point WHERE (railway='station' OR railway='halt') AND ((direction IS NULL) OR direction SIMILAR TO '[0-9]+')) AS names</Parameter>
@@ -557,7 +560,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="symbols-peaks">
+	<Layer name="symbols-peaks">
 		<StyleName>symbols-peaks</StyleName>
         <StyleName>text-peaks</StyleName>
 		<Datasource>
@@ -567,7 +570,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="symbols-poly">
+	<Layer name="symbols-poly">
 		<StyleName>symbols-1</StyleName>
 		<StyleName>symbols-2</StyleName>
 		<StyleName>symbols-poly</StyleName>
@@ -578,7 +581,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="symbols-point">
+	<Layer name="symbols-point">
 		<StyleName>symbols-1</StyleName>
 		<StyleName>symbols-2</StyleName>
 		<StyleName>symbols-point</StyleName>
@@ -589,7 +592,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="symbols-saddle">
+	<Layer name="symbols-saddle">
 		<StyleName>symbols-saddle</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,"natural",direction,name,ele FROM planet_osm_point where ("natural"='saddle' or "natural"='col' or "natural"='notch') AND direction SIMILAR TO '[0-9]+') AS symbols </Parameter>
@@ -598,7 +601,7 @@
 		</Datasource>
 	</Layer>
 
-    <Layer srs="&webmerc;" name="text-glacier-lowzoom">
+    <Layer name="text-glacier-lowzoom">
 		<StyleName>text-glacier-lowzoom</StyleName>
 		<Datasource>
             <Parameter name="table">(SELECT way,name,lake_area FROM lakelabels WHERE label='glacieraxis') AS lakelabels </Parameter>
@@ -607,7 +610,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="text-natural-areas-highzoom">
+	<Layer name="text-natural-areas-highzoom">
 	 <StyleName>text-natural-areas-highzoom</StyleName>
 	 <Datasource>
 	   <Parameter name="table">(SELECT way,name,areatype,way_area,nextregionsize,subregionsize FROM naturalarealabels) AS naturallabels </Parameter>
@@ -616,7 +619,7 @@
 	 </Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="symbols-viewpoint">
+	<Layer name="symbols-viewpoint">
 		<StyleName>symbols-viewpoint</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,tourism,(int_dir).s1 as firstrotation,(int_dir).a1 as firstangle,(int_dir).s2 as secondrotation,(int_dir).a2 as secondangle FROM (SELECT way,tourism,viewpointdirection(direction) AS int_dir FROM planet_osm_point WHERE (tourism='viewpoint' AND direction IS NOT NULL)) AS viewpoints) AS symbols</Parameter>
@@ -625,7 +628,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="road-names-text">
+	<Layer name="road-names-text">
 		<StyleName>road-names-text</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,ST_Length(way) AS length,highway,name,service,surface,tracktype,lanes,embankment,oneway FROM planet_osm_line WHERE (!scale_denominator! &gt; 300000) OR ((bridge IS NULL OR bridge = 'no') AND (tunnel IS NULL OR tunnel != 'yes')) AND ((highway IS NOT NULL AND highway!='construction') OR (leisure='track' AND sport='bobsleigh') OR attraction='summer_toboggan') ORDER BY (CASE WHEN highway IN ('motorway','trunk') THEN 5 WHEN highway='primary' THEN 1 WHEN highway='secondary' THEN 2 WHEN highway='tertiary' THEN 3 ELSE 4 END) DESC ) AS roads</Parameter> 
@@ -634,7 +637,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="building-housenumbers-polygons">
+	<Layer name="building-housenumbers-polygons">
 		<StyleName>housenumbers-poly</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,"addr:housenumber",name,building,way_area FROM planet_osm_polygon WHERE building IS NOT NULL) AS housenumbers </Parameter>
@@ -642,7 +645,7 @@
 			&postgis-settings;
 		</Datasource>
 	</Layer>
-	<Layer srs="&webmerc;" name="building-housenumbers-points">
+	<Layer name="building-housenumbers-points">
 		<StyleName>housenumbers-point</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,"addr:housenumber",name,building FROM planet_osm_point WHERE "addr:housenumber" IS NOT NULL) AS housenumbers </Parameter>
@@ -651,7 +654,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="text-roads-ref">
+	<Layer name="text-roads-ref">
 		<StyleName>text-roads-ref</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,highway,ref FROM planet_osm_line WHERE (ST_Length(way)::integer &gt; 1000) AND ref IS NOT NULL) AS roads </Parameter>
@@ -660,7 +663,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="text-waterways">
+	<Layer name="text-waterways">
 		<StyleName>text-waterways</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,name,waterway FROM planet_osm_line WHERE waterway IS NOT NULL) AS names</Parameter>
@@ -669,7 +672,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer srs="&webmerc;" name="text-cities-lowzoom">
+	<Layer name="text-cities-lowzoom">
 		<StyleName>text-cities-lowzoom</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,admin_level,name,capital,place,population FROM cities ORDER BY population DESC) AS cities</Parameter>
@@ -678,19 +681,19 @@
 		</Datasource>
 	</Layer>
 
-	<Layer srs="&webmerc;" name="text-cities" clear-label-cache="on">
+	<Layer name="text-cities" clear-label-cache="on">
 		<StyleName>text-cities</StyleName>
 		<StyleName>text-towns</StyleName>
 		<StyleName>text-villages</StyleName>
 		<Datasource>
-			<Parameter name="table">(SELECT way,admin_level,name,capital,'('&#124;&#124;substring(ele from '^[\d]+')&#124;&#124;')' as ele,place,population::INTEGER FROM planet_osm_point WHERE place IN ('city','town','village','suburb','hamlet','isolated_dwelling','locality') ORDER BY (CASE WHEN place='city' THEN 0 WHEN place='town' THEN 1 WHEN place='village' THEN 2 ELSE 3 END) ASC, (CASE WHEN population IS NUll THEN 0 WHEN population similar to '[[:digit:]]+' THEN population::integer ELSE 0 END) DESC
+			<Parameter name="table">(SELECT way,admin_level,name,capital,'('&#124;&#124;substring(ele from '^[\d]+')&#124;&#124;')' as ele,place,population::INTEGER FROM planet_osm_point WHERE (population IS NULL OR population SIMILAR TO '[[:digit:]]+') AND place IN ('city','town','village','suburb','hamlet','isolated_dwelling','locality') ORDER BY (CASE WHEN place='city' THEN 0 WHEN place='town' THEN 1 WHEN place='village' THEN 2 ELSE 3 END) ASC, (CASE WHEN population IS NUll THEN 0 WHEN population similar to '[[:digit:]]+' THEN population::integer ELSE 0 END) DESC
 		  ) AS names</Parameter>
 			<Parameter name="dbname">gis</Parameter>
 			&postgis-settings;
 		</Datasource>
 	</Layer>
 	
-<!--	<Layer srs="&webmerc;" name="test">
+<!--	<Layer name="test">
 		<StyleName>test</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT l.way,l.name,l.waterway FROM planet_osm_line l JOIN planet_osm_polygon p ON ST_Intersects(p.way,l.way) WHERE p.waterway='riverbank' AND l.name='Wiesent' AND l.waterway='river') AS test</Parameter>
@@ -702,4 +705,8 @@
 	
 </Map>
 
-
+<!--
+macros:
+	!scale_denominator!
+	!bbox!
+-->

@@ -58,7 +58,7 @@
 	<Rule>
 		&maxscale_zoom14;
 		&minscale_zoom14;
-		<Filter>[way_area] &lt; 1e8 and ( [way_area] &gt; 1e3 and [nextregionsize] &gt; 1e8)</Filter>
+		<Filter>[way_area] &lt; 1e8 and ( [way_area] &gt; 1e6 and [nextregionsize] &gt; 1e8)</Filter>
 		<TextSymbolizer size="11" character-spacing="70" spacing="500" fontset-name="sans-oblique" fill="black" halo-radius="2" halo-fill="rgba(255,255,255,0.8)" placement="line" allow-overlap="false" placement-type="list">[name]
                 <Placement character-spacing="60" dx="0" dy="0"/>
                 <Placement character-spacing="60" dx="0" dy="9"/>
