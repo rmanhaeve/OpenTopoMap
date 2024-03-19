@@ -1,0 +1,1 @@
+This work, "TopoMapnik", is adapted from ["OpenTopoMap"](https://github.com/der-stefan/OpenTopoMap) used under [CC BY SA](https://creativecommons.org/licenses/by/4.0/). "TopoMapnik" is licensed under [CC BY SA](https://creativecommons.org/licenses/by/4.0/) by Robin Manhaeve.
