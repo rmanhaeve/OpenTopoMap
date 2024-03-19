@@ -1,0 +1,3 @@
+[submodule "mapnik/flask-wms"]
+	path = mapnik/flask-wms
+	url = git@github.com:rmanhaeve/flask-wms.git

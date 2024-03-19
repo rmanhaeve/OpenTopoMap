@@ -1,5 +1,9 @@
 include ../settings.mk
 
+WARP_LEVELS = 90 500 700 1000 5000
+RELIEF_LEVELS = 500 5000
+HILLSHADE_LEVELS = 90 500 700 1000 5000
+
 .PHONY: all
 all: $(patsubst %, warp-%.tif, $(WARP_LEVELS)) $(patsubst %, relief-%.tif, $(RELIEF_LEVELS)) $(patsubst %, hillshade-%.tif, $(HILLSHADE_LEVELS)) hillshade-90-jpeg.tif hillshade-30m-jpeg.tif contours.pbf
 
@@ -44,5 +48,5 @@ hillshade-30m-jpeg.tif: warp-90.tif
 	gdaldem hillshade -z 5 -compute_edges -co BIGTIFF=YES -co TILED=YES -co COMPRESS=JPEG warp-90.tif hillshade-30m-jpeg.tif
 	
 contours.pbf: warp-90.tif
-	source ../mapnik_venv/bin/activate && pyhgtmap --max-nodes-per-tile=0 -s 10 -0 --pbf warp-90.tif
+	source /var/topomapnik_venv/bin/activate && pyhgtmap --max-nodes-per-tile=0 -s 10 -0 --pbf warp-90.tif
 	mv lon-*.osm.pbf contours.pbf

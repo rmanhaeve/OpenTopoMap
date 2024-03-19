@@ -171,14 +171,14 @@
 	
 	&basemap-relief;
 	
-	<Layer name="landuse-lowzoom">
+	<!-- <Layer name="landuse-lowzoom">
 		<StyleName>landuse-lowzoom</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,landuse,"natural" FROM landuse) AS landuse </Parameter>
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 	
 	<Layer name="landuse">
 		<StyleName>landuse</StyleName>
@@ -211,7 +211,7 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer name="water-lowzoom">
+	<!-- <Layer name="water-lowzoom">
 		<StyleName>water-casing-lowzoom</StyleName>
 		<StyleName>water-fill-lowzoom</StyleName>
 		<Datasource>
@@ -219,7 +219,7 @@
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 	
 	<Layer name="waterway-lines">
 		<StyleName>waterway-lines</StyleName>
@@ -310,21 +310,21 @@
 		<StyleName>contours</StyleName>
 		<Datasource>
 			<!-- If you imported the contour lines as suggested in the HOWTO_DEM, use following:-->
-            <Parameter name="table">(SELECT way,ele FROM planet_osm_line) AS contours </Parameter>
+            <Parameter name="table">(SELECT way,ele FROM contours_line) AS contours </Parameter>
             <!--<Parameter name="table">(SELECT way,ele FROM contours) AS contours </Parameter>-->
-			<Parameter name="dbname">contours</Parameter>
+			<Parameter name="dbname">gis</Parameter>
 			&postgis-settings;
 		</Datasource>
 	</Layer>
 	
-	<Layer name="borders-lowzoom">
+	<!-- <Layer name="borders-lowzoom">
 		<StyleName>borders-lowzoom</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,boundary,admin_level FROM borders) AS borders</Parameter>
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 	
 	<Layer name="borders">
 		<StyleName>borders</StyleName>
@@ -352,14 +352,14 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer name="railways-lowzoom">
+	<!-- <Layer name="railways-lowzoom">
 		<StyleName>railways-lowzoom</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,railway,"service",tunnel FROM railways) AS railways</Parameter>
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 	
 	<Layer name="railways">
 		<StyleName>railways-embankment</StyleName>
@@ -389,7 +389,7 @@
 			&postgis-settings;
 		</Datasource>
 	</Layer>
-
+<!-- 
 	<Layer name="roads-lowzoom">
 		<StyleName>roads-casing-lowzoom</StyleName>
 		<StyleName>roads-fill-lowzoom</StyleName>
@@ -398,7 +398,7 @@
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 	
 	<Layer name="roads">
 		<StyleName>roads-casing</StyleName>
@@ -514,7 +514,7 @@
 		</Datasource>
 	</Layer>
 
-	<Layer name="text-natural-areas-lowzoom">
+	<!-- <Layer name="text-natural-areas-lowzoom">
 	 <StyleName>text-natural-areas-lowzoom</StyleName>
 	 <Datasource>
 	   <Parameter name="table">(SELECT way,name,areatype,way_area,nextregionsize,subregionsize FROM naturalarealabels) AS naturallabels </Parameter>
@@ -531,7 +531,7 @@
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 
 	<Layer name="text-natural-poly">
 		<StyleName>text-natural-poly</StyleName>
@@ -601,23 +601,23 @@
 		</Datasource>
 	</Layer>
 
-    <Layer name="text-glacier-lowzoom">
+    <!-- <Layer name="text-glacier-lowzoom">
 		<StyleName>text-glacier-lowzoom</StyleName>
 		<Datasource>
             <Parameter name="table">(SELECT way,name,lake_area FROM lakelabels WHERE label='glacieraxis') AS lakelabels </Parameter>
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 
-	<Layer name="text-natural-areas-highzoom">
+	<!-- <Layer name="text-natural-areas-highzoom">
 	 <StyleName>text-natural-areas-highzoom</StyleName>
 	 <Datasource>
 	   <Parameter name="table">(SELECT way,name,areatype,way_area,nextregionsize,subregionsize FROM naturalarealabels) AS naturallabels </Parameter>
 	   <Parameter name="dbname">lowzoom</Parameter>
 	   &postgis-settings;
 	 </Datasource>
-	</Layer>
+	</Layer> -->
 
 	<Layer name="symbols-viewpoint">
 		<StyleName>symbols-viewpoint</StyleName>
@@ -672,14 +672,14 @@
 		</Datasource>
 	</Layer>
 	
-	<Layer name="text-cities-lowzoom">
+	<!-- <Layer name="text-cities-lowzoom">
 		<StyleName>text-cities-lowzoom</StyleName>
 		<Datasource>
 			<Parameter name="table">(SELECT way,admin_level,name,capital,place,population FROM cities ORDER BY population DESC) AS cities</Parameter>
 			<Parameter name="dbname">lowzoom</Parameter>
 			&postgis-settings;
 		</Datasource>
-	</Layer>
+	</Layer> -->
 
 	<Layer name="text-cities" clear-label-cache="on">
 		<StyleName>text-cities</StyleName>

@@ -6,3 +6,6 @@
 .select_permissions
 .user
 mapnik_venv/
+**.hgt
+**.pbf
+data
